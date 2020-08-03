@@ -46,15 +46,20 @@ void estimate_pi( int w){
     cin>>res;
     string correct = "y";
     string correct2 = "Y";
+    string file_name = "_rng_state.dat";
+    
+    file_name = optarg + file_name;
+    
+    
 
     //     VALIDATES THE INPUT
     if ((res == correct) or (res == correct2) ){
-        if (file_exist("rng_state.dat") ){
+        if (file_exist(file_name) ){
             cout<<"\n... LOADING RNG STATE OF A PREVIOUSLY SAVED SIMULATION \n";
             this_thread::sleep_for (std::chrono::seconds(3));
 
             ifstream myfile;
-            myfile.open ("rng_state.dat");
+            myfile.open (file_name);
             rngPtr->load(myfile);
             myfile.close();
             }
@@ -84,8 +89,6 @@ void estimate_pi( int w){
             
             while (myfile >> line) {
                 content.push_back(line);
-                cout<<line<<"lineeeeeeeeeeeeeeeeeee"<<endl;
-                cout<<content[i]<<"CONTENTTTTTTTTTT"<<endl;
                 i +=1;
                 if (i==4)
                     break;
@@ -131,17 +134,12 @@ void estimate_pi( int w){
         cout << "\nEstamated PI is : " << PI<<endl;
         
     ofstream myfile;
-    myfile.open ("rng_state.dat");
+    myfile.open (file_name);
     myfile<<rngPtr->save().str();
-    cout<< "RNG STATE SAVED AS (rng_state.dat)"<<endl;
+    cout<< "RNG STATE SAVED AS (" << file_name<<" )"<<endl;
     myfile.close();
     
-    
 
-//    cout<<in<<endl;
-//    cout<<out<<endl;
-//    cout<<total<<endl;
-//    cout<<sample_points<<endl;
     ofstream myfile2;
     myfile2.open ("PI_data.dat");
     myfile2<<in<<endl;
