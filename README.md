@@ -24,11 +24,12 @@ After clonning this directory, the code can be compiled using g++ with the comma
 
 The sample code, rng_sample.cpp, after compilation take command line argument(s) and can be used in two modes: Test mode and run mode
 
-do [./rng_sample -h] to see the help string:       
+To see the help string, do:  
+    ./rng_sample -h     
 
-USAGE:	-h [help]	Displays this help message
-	-t [test mode] 	<test sample size> (An integer value)
-	-r [run mode] 	<pimc_mt19937||std_mt19937||boost_mt19937||PCG>
+    USAGE:	-h [help]	Displays this help message
+	    -t [test mode] 	<test sample size> (An integer value)
+	    -r [run mode] 	<pimc_mt19937||std_mt19937||boost_mt19937||PCG>
 
 
     
