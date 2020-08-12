@@ -16,7 +16,7 @@ The different RNGs implemented in this class are:
 While these are the four RNGs used in this project for our RNG class, its implementation allows for easy addition of other RNGs if so desired ( check source codes ).
 
 
-#INTSTALLATION, COMPILATION AND USAGE
+# INTSTALLATION, COMPILATION AND USAGE
 After clonning this directory, the code can be compiled using g++ with the command:
     g++ -o rng_sample rng_sample.cpp
 
