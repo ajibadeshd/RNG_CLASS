@@ -31,7 +31,7 @@ inline bool file_exist(const std::string& name){
 
 //**************DESCRIBES THE USAGE OF THE PROGRAM********************
 void display_usage(){
-    cout<< "\nUSAGE : -t [test mode] -r [run mode] <pimc_mt19937||std_mt19937||boost_mt19937||PCG>\n";
+    cout<< "\nUSAGE : -h [help] -t [test mode] -r [run mode] <pimc_mt19937||std_mt19937||boost_mt19937||PCG>\n";
     }
 
 
@@ -257,7 +257,7 @@ int main(int argc, char *argv[]){
     uint32 seed = 139853;
     
     int option;
-    while(  (option = getopt (argc, argv, "tr:") ) != -1 ){
+    while(  (option = getopt (argc, argv, "htr:") ) != -1 ){
         switch (option){
 
             case 't': {                                           
@@ -322,7 +322,12 @@ int main(int argc, char *argv[]){
                     display_usage();    
                     } 
                 break;
-                }                        
+                } 
+                
+            case 'h':{              
+                     display_usage();
+                break;
+                }                                       
                     
                 default :{
                     display_usage();     

@@ -6,16 +6,25 @@ This class also allows for the saving and loading of states of any of the RNGs w
 The different RNGs implemented in this class are:
 
     Boost.Random ( https://www.boost.org/doc/libs/1_66_0/doc/html/boost_random.html )
+    
     C++ standard library Mersenne Twister ( https://en.cppreference.com/w/cpp/numeric/random/mersenne_twister_engine )
+    
     PCG ( https://www.pcg-random.org/index.html ) Header only.
+    
     A header only Mersenne Twister by  Makoto Matsumoto ( http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html )
     
 While these are the four RNGs used in this project for our RNG class, its implementation allows for easy addition of other RNGs if so desired ( check source codes ).
 
 
+#INTSTALLATION, COMPILATION AND USAGE
+
+The 
+
+
+
 # EXAMPLE CODE USAGE
 
-The sample code, rng_sample.cpp, does can be used in two modes:
+The sample code, rng_sample.cpp, can be used in two modes:
     Test mode
     Run mode
 ## Test mode   
