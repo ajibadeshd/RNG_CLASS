@@ -115,7 +115,7 @@ Users should be aware of the need to save neccesary data partinent to their own 
 
     ##################################################
 
-##RUN MODE
+## RUN MODE
 
     ./rng_sample -r boost_mt19937
 
