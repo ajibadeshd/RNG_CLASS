@@ -31,13 +31,15 @@ inline bool file_exist(const std::string& name){
 
 //**************DESCRIBES THE USAGE OF THE PROGRAM********************
 void display_usage(){
-    cout<< "\nUSAGE : -h [help] -t [test mode] -r [run mode] <pimc_mt19937||std_mt19937||boost_mt19937||PCG>\n";
+    cout<< "\nUSAGE:\t-h [help]\tDisplays this help message\n";
+    cout<<"\t-t [test mode] \t<test sample size> (An integer value)\n";
+    cout<<"\t-r [run mode] \t<pimc_mt19937||std_mt19937||boost_mt19937||PCG>\n";
     }
 
 
 //********** THIS FUNCTION DOES THE ACTUAL ESTIMATION OF pi ******************
 void estimate_pi( int w){
-    cout<<"\nThis test code estimates PI using the Monte Carlo method\n"<<endl;
+    cout<<"\nTHIS CODE ESTIMATES PI USING THE MONTE CARLO TECHNIQUE\n"<<endl;
     std::unique_ptr<RNG> rngPtr;
     rngPtr = GetRNG ( w );
     
@@ -55,25 +57,30 @@ void estimate_pi( int w){
     //     VALIDATES THE INPUT
     if ((res == correct) or (res == correct2) ){
         if (file_exist(file_name) ){
-            cout<<"\n... LOADING RNG STATE OF A PREVIOUSLY SAVED SIMULATION \n";
+            cout<<"\nLOADING RNG STATE OF A PREVIOUSLY SAVED SIMULATION ... \n";
             this_thread::sleep_for (std::chrono::seconds(3));
 
             ifstream myfile;
             myfile.open (file_name);
             rngPtr->load(myfile);
             myfile.close();
+            
+            cout<< "\nrng state data successfully loaded\n";
             }
            
         else{
-            cout<<"\n... CAN'T FIND A RNG STATE FILE OF ANY PREVIOUSLY SAVED SIMULATION ...\n\n";
+            cout<<"\nFailure!\ncan't find simulation data file.\n\n";
             this_thread::sleep_for (std::chrono::seconds(3));
             }
+        }
+    else{
+        cout<< "\nrng state not loaded\n";
         }
         double in  , out  ,total , sample_count;
         double  x , y, det,PI, pi, sample_points;
         
         
-        cout<<"\n... ATTEMPTING TO LOAD PREVIOUS PI_SIMULATION STAGE DATA ...\n";
+        cout<<"\nATTEMPTING TO LOAD PREVIOUS PI_SIMULATION STAGE DATA ...\n";
             this_thread::sleep_for (std::chrono::seconds(3));
 
 
@@ -108,7 +115,7 @@ void estimate_pi( int w){
                 
                 }   
 
-            cout<<"SIMULATION DATA FILE LOADED SUCCESSFULLY"<<endl;
+            cout<< "\nsimulation data file successfully loaded\n";
             
             }   
         else{cout<<" CAN'T FIND SIMULATION DATA FILE (PI_data.dat)"<<endl;
@@ -131,12 +138,12 @@ void estimate_pi( int w){
             }
 
         PI = total / sample_points;
-        cout << "\nEstamated PI is : " << PI<<endl;
+        cout << "\nESTIMATED VALUE FOR PI IS : " << PI<<endl<<endl;
         
     ofstream myfile;
     myfile.open (file_name);
     myfile<<rngPtr->save().str();
-    cout<< "RNG STATE SAVED AS (" << file_name<<" )"<<endl;
+    cout<< "RNG state file saved as (" << file_name<<" )"<<endl;
     myfile.close();
     
 
@@ -146,7 +153,7 @@ void estimate_pi( int w){
     myfile2<<out<<endl;
     myfile2<<total<<endl;
     myfile2<<sample_points<<endl;
-    cout<< "PI estimation data SAVED AS (PI_data.dat)"<<endl;
+    cout<< "PI estimation data saved as (PI_data.dat)"<<endl;
     myfile2.close();     
     }
 
@@ -155,34 +162,35 @@ void estimate_pi( int w){
 
 //***********THIS FUNCTION TESTS THE SPEED OF EACH MEMBER FUNCTIONS FROM ALL THE RANDOM NUMBER GENERATOR TYPES***************************
 void time_rngs( int type ,  uint32 seed){
-    //int sample_size = 1000000000;
-    int sample_size = 10000;
+
+    int test_sample_size = atoi(optarg);
+    cout<< "TESTING WITH SAMPLE SIZE OF : "<<test_sample_size<<" Random Numbers"<<endl<<endl<<endl;
     std::unique_ptr<RNG> randomNumberGeneratorPtr;
     randomNumberGeneratorPtr = GetRNG ((type ), seed);
         
         
     auto start_rand = std::chrono::steady_clock::now();
-        for (int i=0; i<sample_size;i++){
+        for (int i=0; i<test_sample_size;i++){
             randomNumberGeneratorPtr->rand();
             }
     auto end_rand = std::chrono::steady_clock::now();
     std::chrono::duration<double> rand_elapsed_seconds = end_rand-start_rand;
-    cout<<"Time for rand : \t"<<rand_elapsed_seconds.count()<< "s\n";
+    cout<<"Time for rand : \t\t"<<rand_elapsed_seconds.count()<< "s\n";
        
         
         
     auto start_randInt = std::chrono::steady_clock::now();
-        for (int i=0; i<sample_size;i++){
+        for (int i=0; i<test_sample_size;i++){
             randomNumberGeneratorPtr->randInt();
             }
     auto end_randInt = std::chrono::steady_clock::now();
     std::chrono::duration<double> randInt_elapsed_seconds = end_randInt-start_randInt;
-    cout<<"Time for randInt : \t"<<randInt_elapsed_seconds.count()<< "s\n";
+    cout<<"Time for randInt : \t\t"<<randInt_elapsed_seconds.count()<< "s\n";
        
         
         
     auto start_seeded_randInt = std::chrono::steady_clock::now();
-        for (int i=0; i<sample_size;i++){
+        for (int i=0; i<test_sample_size;i++){
             randomNumberGeneratorPtr->randInt(seed);
             }
     auto end_seeded_randInt = std::chrono::steady_clock::now();
@@ -192,17 +200,17 @@ void time_rngs( int type ,  uint32 seed){
     
         
     auto start_randExc = std::chrono::steady_clock::now();
-        for (int i=0; i<sample_size;i++){
+        for (int i=0; i<test_sample_size;i++){
             randomNumberGeneratorPtr->randExc();
             }
     auto end_randExc = std::chrono::steady_clock::now();
     std::chrono::duration<double> randExc_elapsed_seconds = end_randExc-start_randExc;
-    cout<<"Time for randExc() : \t"<<randExc_elapsed_seconds.count()<< "s\n";
+    cout<<"Time for randExc() : \t\t"<<randExc_elapsed_seconds.count()<< "s\n";
        
         
         
     auto start_seeded_randExc = std::chrono::steady_clock::now();
-        for (int i=0; i<sample_size;i++){
+        for (int i=0; i<test_sample_size;i++){
             randomNumberGeneratorPtr->randExc(139853.0);
             }
     auto end_seeded_randExc = std::chrono::steady_clock::now();
@@ -212,17 +220,17 @@ void time_rngs( int type ,  uint32 seed){
         
         
     auto start_randDblExc = std::chrono::steady_clock::now();
-        for (int i=0; i<sample_size;i++){
+        for (int i=0; i<test_sample_size;i++){
             randomNumberGeneratorPtr->randDblExc();
             }
     auto end_randDblExc = std::chrono::steady_clock::now();
     std::chrono::duration<double> randDblExc_elapsed_seconds = end_randDblExc-start_randDblExc;
-    cout<<"Time for randDblExc : \t"<<randDblExc_elapsed_seconds.count()<< "s\n";
+    cout<<"Time for randDblExc : \t\t"<<randDblExc_elapsed_seconds.count()<< "s\n";
        
         
         
     auto start_seeded_randDblExc = std::chrono::steady_clock::now();
-        for (int i=0; i<sample_size;i++){
+        for (int i=0; i<test_sample_size;i++){
             randomNumberGeneratorPtr->randDblExc(139853.0);
             }
     auto end_seeded_randDblExc = std::chrono::steady_clock::now();
@@ -232,12 +240,12 @@ void time_rngs( int type ,  uint32 seed){
         
         
     auto start_randNorm = std::chrono::steady_clock::now();
-        for (int i=0; i<sample_size;i++){
+        for (int i=0; i<test_sample_size;i++){
             randomNumberGeneratorPtr->randNorm(1.0,2.5);
             }
         auto end_randNorm = std::chrono::steady_clock::now();
     std::chrono::duration<double> randNorm_elapsed_seconds = end_randNorm-start_randNorm;
-    cout<<"Time for randNorm : \t"<<randNorm_elapsed_seconds.count()<< "s\n";
+    cout<<"Time for randNorm : \t\t"<<randNorm_elapsed_seconds.count()<< "s\n";
       
     }
 
@@ -257,7 +265,7 @@ int main(int argc, char *argv[]){
     uint32 seed = 139853;
     
     int option;
-    while(  (option = getopt (argc, argv, "htr:") ) != -1 ){
+    while(  (option = getopt (argc, argv, "ht:r:") ) != -1 ){
         switch (option){
 
             case 't': {                                           
@@ -293,7 +301,7 @@ int main(int argc, char *argv[]){
                     time_rngs( 4 , seed );
                 auto PCG_end = std::chrono::steady_clock::now();
                 std::chrono::duration<double> PCG_seconds = PCG_end-PCG_start;
-                std::cout << "TOTAL TIME FOR *PCG*\t" << PCG_seconds.count() << "s\n"<<std::endl;
+                std::cout << "TOTAL TIME FOR PCG\t\t" << PCG_seconds.count() << "s\n"<<std::endl;
                 std::cout<<"##################################################"<<endl;
                 break;
                 }
