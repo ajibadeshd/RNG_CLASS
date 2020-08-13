@@ -102,7 +102,7 @@ void estimate_pi( int w){
                 }
                 
                 
-            for (i ; i < content.size(); ++i) {
+            for (auto i =0 ; i < content.size(); ++i) {
                 if (i == 0){in = content[i];
                 cout<<line<<endl;}
                 if (i == 1){out =content[i];
