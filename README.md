@@ -19,7 +19,9 @@ While these are the four RNGs used in this project for our RNG class, its implem
 # INTSTALLATION, COMPILATION AND USAGE
 After clonning this directory, the code can be compiled using g++ with the command:
     
-    g++ -o rng_sample rng_sample.cpp
+    g++ -std=c++14 -o rng_sample rng_sample.cpp -I /path/to/include/boost
+
+where `/path/to/include/boost` is only necessary if your boost headers are located in a non-standard location.
 
 ## CODE USAGE
 

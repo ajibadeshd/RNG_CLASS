@@ -93,9 +93,6 @@ class MTFromPIMC:public RNG
 	    std::stringstream stateStrStrm;
         stateStrStrm.str("");
 
-        /* Save the state of the random number generator */
- 
- /*
  
         uint32 randomState[random.SAVE];
         random.save(randomState);
@@ -130,7 +127,8 @@ class MTFromPIMC:public RNG
     { return random.randDblExc(n); };
     
     inline double MTFromPIMC::randNorm( const double mean, const double stddev = 1.0 ){return random.randNorm(mean , stddev);};
-/*///##############################################################################
+///##############################################################################
+*/
 
 
 class MTFromSTL:public RNG
