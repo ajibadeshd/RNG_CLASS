@@ -18,6 +18,7 @@ While these are the four RNGs used in this project for our RNG class, its implem
 
 # INTSTALLATION, COMPILATION AND USAGE
 After clonning this directory, the code can be compiled using g++ with the command:
+    
     g++ -o rng_sample rng_sample.cpp
 
 ## CODE USAGE
@@ -25,6 +26,7 @@ After clonning this directory, the code can be compiled using g++ with the comma
 The sample code, rng_sample.cpp, after compilation take command line argument(s) and can be used in two modes: Test mode and run mode
 
 To see the help string, do:  
+    
     ./rng_sample -h     
 
     USAGE:	-h [help]	Displays this help message
