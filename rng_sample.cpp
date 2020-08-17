@@ -13,7 +13,6 @@ using namespace std;
 
 
 
-
 //*********** CHECKS IF SAVED STATE FILES EXISTS ******************
 inline bool file_exist(const std::string& name){
     ifstream file(name);
@@ -26,7 +25,6 @@ inline bool file_exist(const std::string& name){
         }
     }
 //******************************************************************
-
 
 
 //**************DESCRIBES THE USAGE OF THE PROGRAM********************
@@ -51,14 +49,12 @@ void estimate_pi( int w){
     string file_name = "_rng_state.dat";
     
     file_name = optarg + file_name;
-    
-    
 
     //     VALIDATES THE INPUT
     if ((res == correct) or (res == correct2) ){
         if (file_exist(file_name) ){
             cout<<"\nLOADING RNG STATE OF A PREVIOUSLY SAVED SIMULATION ... \n";
-            this_thread::sleep_for (std::chrono::seconds(3));
+            this_thread::sleep_for (std::chrono::seconds(2));
 
             ifstream myfile;
             myfile.open (file_name);
@@ -69,25 +65,26 @@ void estimate_pi( int w){
             }
            
         else{
-            cout<<"\nFailure!\ncan't find simulation data file.\n\n";
-            this_thread::sleep_for (std::chrono::seconds(3));
+            cout<<"\nFailed!\ncan't find simulation data file.\n\n";
+            this_thread::sleep_for (std::chrono::seconds(2));
             }
         }
     else{
         cout<< "\nrng state not loaded\n";
         }
-        double in  , out  ,total , sample_count;
-        double  x , y, det,PI, pi, sample_points;
-        
-        
+    
+                
         cout<<"\nATTEMPTING TO LOAD PREVIOUS PI_SIMULATION STAGE DATA ...\n";
-            this_thread::sleep_for (std::chrono::seconds(3));
+            this_thread::sleep_for (std::chrono::seconds(2));
 
 
 
 //      This allows for loading of simulation specific data
+        double in  , out  ,total , initial_count;
+        double  x = 0, y = 0, det =0, PI = 0, pi = 0 , new_count = 0;
+
         if (file_exist("PI_data.dat")){       
-            ifstream myfile ("PI.data.dat",std::ios::in);
+            ifstream myfile ("PI_data.dat",std::ios::in);
 
             double line = 0.0;
             int i = 0;
@@ -100,35 +97,33 @@ void estimate_pi( int w){
                 if (i==4)
                     break;
                 }
+            myfile.close();
                 
-                
-            for (i ; i < content.size(); ++i) {
-                if (i == 0){in = content[i];
-                cout<<line<<endl;}
-                if (i == 1){out =content[i];
-                cout<<line<<endl;}
-                if (i == 2){total = content[i];
-                cout<<line<<endl;}
-                if (i == 3){
-                    sample_count = content[i];
-                    break;}
-                
-                }   
+            cout << "content.size() " << content.size()<<endl;  
+            for (int i = 0; i <= content.size(); ++i) {
+                if (i == 0){in = content[i];}
+                if (i == 1){out = content[i];}
+                if (i == 2){total = content[i];}
+                if (i == 3){initial_count = content[i];
+                    break;}                
+                }
 
             cout<< "\nsimulation data file successfully loaded\n";
             
             }   
         else{cout<<" CAN'T FIND SIMULATION DATA FILE (PI_data.dat)"<<endl;
-            in = 0.0 , out = 0.0  ,total = 0.0 , sample_count = 0.0;
+            in = 0.0 , out = 0.0  ,total = 0.0 , initial_count = 0.0;
             this_thread::sleep_for (std::chrono::seconds(3));
             }     
      
     
     cout<<" \nEnter sample count (MC sample points)\n";
-    cin>>sample_points;
-    sample_points = sample_points + sample_count;
-        for (int i = 1; i < sample_points ; i++){    
+    cin>>new_count;
+    double sample_count;
+    sample_count = new_count + initial_count;
+        for (int i = 0; i < new_count ; i++){    
             x = rngPtr->rand();
+            cout<< "x = rngPtr->rand();"<< x<<endl;
             y = rngPtr->rand();
             det = sqrt( x*x + y*y);
             if (det <= 1 ){in = in+1;}       
@@ -137,7 +132,7 @@ void estimate_pi( int w){
             total = total + pi ;            
             }
 
-        PI = total / sample_points;
+        PI = total / sample_count;
         cout << "\nESTIMATED VALUE FOR PI IS : " << PI<<endl<<endl;
         
     ofstream myfile;
@@ -152,7 +147,7 @@ void estimate_pi( int w){
     myfile2<<in<<endl;
     myfile2<<out<<endl;
     myfile2<<total<<endl;
-    myfile2<<sample_points<<endl;
+    myfile2<<sample_count<<endl;
     cout<< "PI estimation data saved as (PI_data.dat)"<<endl;
     myfile2.close();     
     }
@@ -258,7 +253,7 @@ void time_rngs( int type ,  uint32 seed){
 int main(int argc, char *argv[]){
     if (argc < 2){
         display_usage();
-        //return 1;
+        return 1;
     }
 
 
