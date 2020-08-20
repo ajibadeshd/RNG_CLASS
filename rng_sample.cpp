@@ -65,7 +65,7 @@ void estimate_pi( int w){
             }
            
         else{
-            cout<<"\nFailed!\ncan't find simulation data file.\n\n";
+            cout<<"\nFailed!\nunable to find saved rng state file.\n";
             this_thread::sleep_for (std::chrono::seconds(2));
             }
         }
@@ -123,7 +123,6 @@ void estimate_pi( int w){
     sample_count = new_count + initial_count;
         for (int i = 0; i < new_count ; i++){    
             x = rngPtr->rand();
-            cout<< "x = rngPtr->rand();"<< x<<endl;
             y = rngPtr->rand();
             det = sqrt( x*x + y*y);
             if (det <= 1 ){in = in+1;}       
