@@ -99,7 +99,7 @@ void estimate_pi( int w){
                 }
             myfile.close();
                 
-            cout << "content.size() " << content.size()<<endl;  
+ 
             for (int i = 0; i <= content.size(); ++i) {
                 if (i == 0){in = content[i];}
                 if (i == 1){out = content[i];}
