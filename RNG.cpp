@@ -222,43 +222,7 @@
     { return randExc(n); };
      
      
-	      
 
-	 
-	 
-     
-     
-     
-     
-// DEFINITIONS OF FUNCTIONS FROM MTFromBOOST
-/*
-
-	 MTFromBOOST::MTFromBOOST(){
-	    seed();
-	    using parm_t = decltype(dis)::param_type;
-	    dis.param(parm_t{0.0, 1.0});
-	};
-     MTFromBOOST::MTFromBOOST(const uint32 _seed){
-        seed (_seed);
-        using parm_t = decltype(dis)::param_type;
-	    dis.param(parm_t{0.0, 1.0});
-    };
-    
-
-	
-	 void MTFromBOOST::seed(){generator.seed();};
-	 void MTFromBOOST::seed( const uint32 seed ){generator.seed(seed);};
-
-	 uint32 MTFromBOOST::randInt(){
-	    return randInt((2^32)-1);
-	};
-	 uint32 MTFromBOOST::randInt( const uint32 n ){
-	    using parm_t = decltype(disInt)::param_type;
-	    return disInt( generator, parm_t{0, n});
-	};
-	 double MTFromBOOST::rand(){return dis(generator);};
-//#########################################################################
-*/
 // DEFINITIONS OF FUNCTIONS FROM MTFromBOOST
 
 	 MTFromBOOST::MTFromBOOST(){

@@ -34,10 +34,7 @@ class RNG
     }; 
     
     virtual void load(std::istream&) {};  
-	
-	
-  //	virtual ~RNG() { std::cout << "Goodbye" << std::endl;}
-	// double rand(double a, double b){return ( ((b-a)*rand()) + a );}
+
 	};
 	
 
@@ -71,64 +68,7 @@ class MTFromPIMC:public RNG
 
 	};
 
-/*
-	inline MTFromPIMC::MTFromPIMC(){ seed();};
-	
-	
-   	inline MTFromPIMC::MTFromPIMC(const uint32 _seed){seed (_seed);};
 
-	inline void MTFromPIMC::seed(){
-	random.seed();
-	};
-	
-    inline void MTFromPIMC::seed(const uint32 seed){
-	random.seed(seed);
-	};
-	inline uint32 MTFromPIMC::randInt(){return random.randInt();};
-	inline uint32 MTFromPIMC::randInt( const uint32 n ){return random.randInt( n );};
-	inline double MTFromPIMC::rand(){return random.rand();};
-	
-	
-	inline std::stringstream MTFromPIMC::save(){
-	    std::stringstream stateStrStrm;
-        stateStrStrm.str("");
-
- 
-        uint32 randomState[random.SAVE];
-        random.save(randomState);
-        for (int i = 0; i < random.SAVE; i++)
-            stateStrStrm << randomState[i] << " ";
-        stateStrStrm << std::endl;
-    
-        return stateStrStrm ;
-	};
-*/	
-	
-	
-	/*
-	inline void MTFromPIMC::load(std::istream& stateStrStrm){
-	uint32 randomState[random.SAVE];
-    for (int i = 0; i < random.SAVE; i++) 
-        stateStrStrm >> randomState[i];
-    random.load(randomState);
-	};
-	
-    inline double MTFromPIMC::randExc(){
-    return random.randExc(); 
-    };
-    
-    inline double MTFromPIMC::randExc( const double n )
-    { return random.randExc(n); };
-
-    inline double MTFromPIMC::randDblExc()
-    { return  random.randDblExc(); };
-
-    inline double MTFromPIMC::randDblExc( const double n )
-    { return random.randDblExc(n); };
-    
-    inline double MTFromPIMC::randNorm( const double mean, const double stddev = 1.0 ){return random.randNorm(mean , stddev);};
-///##############################################################################
-*/
 
 
 class MTFromSTL:public RNG
@@ -190,34 +130,6 @@ class MTFromPCG:public RNG
 
 
 
-/*	inline MTFromSTL::MTFromSTL(){
-	    seed();
-	    using parm_t = decltype(dis)::param_type;
-	    dis.param(parm_t{0.0, 1.0});
-	};
-    inline MTFromSTL::MTFromSTL(const uint32 _seed){
-        seed (_seed);
-        using parm_t = decltype(dis)::param_type;
-	    dis.param(parm_t{0.0, 1.0});
-    };
-    
-
-	
-	inline void MTFromSTL::seed(){generator.seed();};
-	inline void MTFromSTL::seed( const uint32 seed ){generator.seed(seed);};
-
-	inline uint32 MTFromSTL::randInt(){
-	    return randInt((2^32)-1);
-	};
-	inline uint32 MTFromSTL::randInt( const uint32 n ){
-	    using parm_t = decltype(disInt)::param_type;
-	    return disInt( generator, parm_t{0, n});
-	};
-	inline double MTFromSTL::rand(){return dis(generator);};
-
-
-/*///##############################################################################
-
 class MTFromBOOST:public RNG
 	{
 	public:
@@ -246,32 +158,6 @@ class MTFromBOOST:public RNG
 	
 	};
 
-
-/*	inline MTFromBOOST::MTFromBOOST(){
-	    seed();
-	    using parm_t = decltype(dis)::param_type;
-	    dis.param(parm_t{0.0, 1.0});
-	};
-    inline MTFromBOOST::MTFromBOOST(const uint32 _seed){
-        seed (_seed);
-        using parm_t = decltype(dis)::param_type;
-	    dis.param(parm_t{0.0, 1.0});
-    };
-    
-
-	
-	inline void MTFromBOOST::seed(){generator.seed();};
-	inline void MTFromBOOST::seed( const uint32 seed ){generator.seed(seed);};
-
-	inline uint32 MTFromBOOST::randInt(){
-	    return randInt((2^32)-1);
-	};
-	inline uint32 MTFromBOOST::randInt( const uint32 n ){
-	    using parm_t = decltype(disInt)::param_type;
-	    return disInt( generator, parm_t{0, n});
-	};
-	inline double MTFromBOOST::rand(){return dis(generator);};
-/*///########################################################################
 
 
 
