@@ -299,6 +299,8 @@ int main(int argc, char *argv[]){
                 std::cout << "TOTAL TIME FOR PCG\t\t" << PCG_seconds.count() << "s\n"<<std::endl;
                 std::cout<<"##################################################"<<endl;
                 break;
+
+return 0;
                 }
           
    
