@@ -33,7 +33,7 @@ void display_usage(){
             }
 
 //######### Pause function for better visualization ###############
-viod pause( int sec){
+void pause( int sec){
         this_thread::sleep_for (std::chrono::seconds( sec));
         }
 
@@ -71,7 +71,7 @@ void estimate_pi( int w){
                 }
         else{
                 cout<< "\nWARNING: Unable to load rng state!!!\n";
-                pause(3)}
+                pause(3);}
     
         //###################### ATTEMPT TO LOAD SAVED PI STATE ##################        
         cout<<"\nATTEMPTING TO LOAD PREVIOUS PI_SIMULATION STAGE DATA ...\n";
@@ -105,7 +105,7 @@ void estimate_pi( int w){
                                 break;}                
                         }
                 cout<< "\nPi simulation file successfully loaded\n";
-                pause(1)
+                pause(1);
                 }
 
         else{
