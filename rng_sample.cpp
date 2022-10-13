@@ -306,7 +306,7 @@ int main(int argc, char *argv[]){
                                 }                                       
 
                         default :{
-                                display_usage();     
+                                //display_usage();     
                                 return 0;
                                 }
                         }
