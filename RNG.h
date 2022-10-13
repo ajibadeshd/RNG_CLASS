@@ -119,7 +119,7 @@ class MTFromBOOST:public RNG{
 		MTFromBOOST(const uint32 );
 		void seed();
 		void seed( const uint32 );
-		uint32 randInt();i
+		uint32 randInt();
 		uint32 randInt( const uint32 );
 		double rand();
 		double randExc();
