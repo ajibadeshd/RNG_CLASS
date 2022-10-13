@@ -235,7 +235,7 @@ void time_rngs( int type ,  uint32 seed){
 
 
 int main(int argc, char *argv[]){
-        if (argc < 2){
+        if (argc < 1){
                 display_usage();
         return 1;
         }
