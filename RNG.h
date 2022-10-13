@@ -166,7 +166,7 @@ inline std::unique_ptr<RNG> GetRNG( int sourceID, const uint32 seed ){
 	else if (sourceID == 4){
         	randomPtr = std::make_unique<MTFromPCG>(seed);}          
        
-	return rand################omPtr ;
+	return randomPtr ;
 	};
 
 //################# This returns the chossen RNG object ####################
