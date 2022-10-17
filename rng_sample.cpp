@@ -153,7 +153,11 @@ void estimate_pi( int w){
 
 
 //***********THIS FUNCTION TESTS THE SPEED OF EACH MEMBER FUNCTIONS FROM ALL THE RANDOM NUMBER GENERATOR TYPES***************************
-void time_rngs( int type ,  uint32 seed){
+void time_rngs( int type ,  uint32 seed, string rng_name){
+		
+		//FILE NAME FOR THE RESULT OF THE TEST
+		ofstream time_output ("Sample_size_"+string(optarg)+"_"+ rng_name + ".txt");
+		
         int test_sample_size = atoi(optarg);
         cout<< "TESTING WITH SAMPLE SIZE OF : "<<test_sample_size<<" Random Numbers"<<endl<<endl<<endl;
         std::unique_ptr<RNG> randomNumberGeneratorPtr;
@@ -166,6 +170,7 @@ void time_rngs( int type ,  uint32 seed){
         auto end_rand = std::chrono::steady_clock::now();
         std::chrono::duration<double> rand_elapsed_seconds = end_rand-start_rand;
         cout<<"Time for rand : \t\t"<<rand_elapsed_seconds.count()<< "s\n";
+        time_output <<"rand\t\t\t"<< rand_elapsed_seconds.count()<<"\n";
        
 
         //######## Estimate time for randInt() ##############
@@ -175,16 +180,8 @@ void time_rngs( int type ,  uint32 seed){
         auto end_randInt = std::chrono::steady_clock::now();
         std::chrono::duration<double> randInt_elapsed_seconds = end_randInt-start_randInt;
         cout<<"Time for randInt : \t\t"<<randInt_elapsed_seconds.count()<< "s\n";
-       
-        
-        //######## Estimate time for randInt(seed) ##############
-        auto start_seeded_randInt = std::chrono::steady_clock::now();
-        for (int i=0; i<test_sample_size;i++){
-                randomNumberGeneratorPtr->randInt(seed);}
-        auto end_seeded_randInt = std::chrono::steady_clock::now();
-        std::chrono::duration<double> seeded_randInt_elapsed_seconds = end_seeded_randInt-start_seeded_randInt;
-        cout<<"Time for seeded_randInt : \t"<<seeded_randInt_elapsed_seconds.count()<< "s\n";
-      
+        time_output <<"randInt\t\t\t"<< randInt_elapsed_seconds.count()<<"\n";
+            
     
         //######## Estimate time for randInt(seed) ##############
         auto start_randExc = std::chrono::steady_clock::now();
@@ -193,6 +190,7 @@ void time_rngs( int type ,  uint32 seed){
         auto end_randExc = std::chrono::steady_clock::now();
         std::chrono::duration<double> randExc_elapsed_seconds = end_randExc-start_randExc;
         cout<<"Time for randExc() : \t\t"<<randExc_elapsed_seconds.count()<< "s\n";
+        time_output <<"randExc\t\t\t"<< randExc_elapsed_seconds.count()<<"\n";
        
         
         //######## Estimate time for randExc(139853.0) ##############
@@ -202,6 +200,7 @@ void time_rngs( int type ,  uint32 seed){
         auto end_seeded_randExc = std::chrono::steady_clock::now();
         std::chrono::duration<double> seeded_randExc_elapsed_seconds = end_seeded_randExc-start_seeded_randExc;
         cout<<"Time for seeded_randExc : \t"<<seeded_randExc_elapsed_seconds.count()<< "s\n";
+        time_output <<"seeded_randExc\t\t"<< seeded_randExc_elapsed_seconds.count()<<"\n";
        
         
         //######## Estimate time for randDblExc() ############
@@ -211,6 +210,7 @@ void time_rngs( int type ,  uint32 seed){
         auto end_randDblExc = std::chrono::steady_clock::now();
         std::chrono::duration<double> randDblExc_elapsed_seconds = end_randDblExc-start_randDblExc;
         cout<<"Time for randDblExc : \t\t"<<randDblExc_elapsed_seconds.count()<< "s\n";
+        time_output <<"randDblExc\t\t"<< randDblExc_elapsed_seconds.count()<<"\n";
        
         
         //######## Estimate time for randDblExc(139853.0) ############
@@ -220,15 +220,20 @@ void time_rngs( int type ,  uint32 seed){
         auto end_seeded_randDblExc = std::chrono::steady_clock::now();
         std::chrono::duration<double> seeded_randDblExc_elapsed_seconds = end_seeded_randDblExc-start_seeded_randDblExc;
         cout<<"Time for seeded_randDblExc : \t"<<seeded_randDblExc_elapsed_seconds.count()<< "s\n";
-      
+        time_output <<"seeded_randDblExc\t"<< seeded_randDblExc_elapsed_seconds.count()<<"\n";
         
-
+        
+		//######## Estimate time for randDblExc(139853.0) ############
         auto start_randNorm = std::chrono::steady_clock::now();
         for (int i=0; i<test_sample_size;i++){
                 randomNumberGeneratorPtr->randNorm(1.0,2.5);}
         auto end_randNorm = std::chrono::steady_clock::now();
         std::chrono::duration<double> randNorm_elapsed_seconds = end_randNorm-start_randNorm;
         cout<<"Time for randNorm : \t\t"<<randNorm_elapsed_seconds.count()<< "s\n";
+        time_output <<"randNorm\t\t"<< randNorm_elapsed_seconds.count()<<"\n";
+        
+        
+        time_output.close();
         }
 
 ////////////////  END OF FUNCTIONS    /////////////////////////
@@ -239,42 +244,59 @@ int main(int argc, char *argv[]){
                 display_usage();
         return 1;
         }
+		
 
+		
         uint32 seed = 139853;
         int option;
         while(  (option = getopt (argc, argv, "ht:r:") ) != -1 ){
                 switch (option){
                         case 't': {                                           
                                 cout << "\nThese random numbers are from pimc_mt19937 "<<endl;
-                                cout<<"\n*********************************\n"; 
+                                cout<<"\n*********************************\n";
+                                
+                                // File for timing output result
+                                string rng_name ;
+								
+                                
+                                rng_name = "pimc_mt19937";
                                 auto PIMC_start = std::chrono::steady_clock::now();
-                                        time_rngs( 1 , seed );
+                                        time_rngs( 1 , seed , rng_name);
                                 auto PIMC_end = std::chrono::steady_clock::now();
                                 std::chrono::duration<double> PIMC_seconds = PIMC_end-PIMC_start;
                                 std::cout << "TOTAL TIME FOR pimc_mt19937\t" << PIMC_seconds.count() << "s\n"<<std::endl;
                                 std::cout<<"##################################################"<<endl;
 
                                 cout << "\nThese random numbers are from : "<<"std_mt19937"<<endl;
-                                cout<<"*********************************\n"; 
+                                cout<<"*********************************\n";
+                                
+                                // File for timing output result
+                                rng_name = "std_mt19937" ;
                                 auto STD_start = std::chrono::steady_clock::now();
-                                        time_rngs( 2 , seed );
+                                        time_rngs( 2 , seed , rng_name);
                                 auto STD_end = std::chrono::steady_clock::now();
                                 std::chrono::duration<double> STD_seconds = STD_end-STD_start;
                                 std::cout << "TOTAL TIME FOR std_mt19937\t" << STD_seconds.count() << "s\n"<<std::endl;
                                 std::cout<<"##################################################"<<endl;
 
                                 cout << "\nThese random numbers are from : "<<"boost_mt19937"<<endl;
-                                cout<<"*********************************\n"; 
+                                cout<<"*********************************\n";
+                                
+                                // File for timing output result
+                                rng_name = "boost_mt19937"; 
                                 auto BOOST_start = std::chrono::steady_clock::now();
-                                        time_rngs( 3 , seed );
+                                        time_rngs( 3 , seed , rng_name);
                                 auto BOOST_end = std::chrono::steady_clock::now();
                                 std::chrono::duration<double> BOOST_seconds = BOOST_end-BOOST_start;
                                 std::cout << "TOTAL TIME FOR boost_mt19937\t" << BOOST_seconds.count() << "s\n"<<std::endl;
 
                                 cout << "\nThese random numbers are from PCG: "<<endl;
-                                cout<<"*********************************\n"; 
+                                cout<<"*********************************\n";
+                                
+                                // File for timing output result
+                                rng_name = "PCG"; 
                                 auto PCG_start = std::chrono::steady_clock::now();
-                                        time_rngs( 4 , seed );
+                                        time_rngs( 4 , seed , rng_name);
                                 auto PCG_end = std::chrono::steady_clock::now();
                                 std::chrono::duration<double> PCG_seconds = PCG_end-PCG_start;
                                 std::cout << "TOTAL TIME FOR PCG\t\t" << PCG_seconds.count() << "s\n"<<std::endl;
@@ -313,4 +335,3 @@ int main(int argc, char *argv[]){
                 }                                    
         return 0;
         }
-
