@@ -1,0 +1,55 @@
+
+These random numbers are from PIMC: 
+*********************************
+TESTING WITH SAMPLE SIZE OF: 10000000 Random Numbers
+
+
+Time for rand : 		0.0634188s
+Time for randInt : 		0.0374668s
+Time for randExp : 		0.105667s
+Time for randBernoulli : 	0.0899888s
+Time for randNorm : 		0.283423s
+TOTAL TIME FOR pimc_mt19937	0.580267s
+
+##################################################
+
+These random numbers are from STL:
+*********************************
+TESTING WITH SAMPLE SIZE OF: 10000000 Random Numbers
+
+
+Time for rand : 		0.111087s
+Time for randInt : 		0.171259s
+Time for randExp : 		0.188921s
+Time for randBernoulli : 	0.105306s
+Time for randNorm : 		0.235864s
+TOTAL TIME FOR std_mt19937	0.81249s
+
+##################################################
+
+These random numbers are from BOOST:
+*********************************
+TESTING WITH SAMPLE SIZE OF: 10000000 Random Numbers
+
+
+Time for rand : 		0.0728783s
+Time for randInt : 		0.102314s
+Time for randExp : 		0.118651s
+Time for randBernoulli : 	0.0471935s
+Time for randNorm : 		0.108421s
+TOTAL TIME FOR boost_mt19937	0.449505s
+
+
+These random numbers are from PCG: 
+*********************************
+TESTING WITH SAMPLE SIZE OF: 10000000 Random Numbers
+
+
+Time for rand : 		0.0462983s
+Time for randInt : 		0.16208s
+Time for randExp : 		0.11104s
+Time for randBernoulli : 	0.0420125s
+Time for randNorm : 		0.159408s
+TOTAL TIME FOR PCG		0.520879s
+
+##################################################
