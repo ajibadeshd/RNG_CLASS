@@ -1,13 +1,9 @@
-//######################  UsageExample.cpp  #########################
-//
-//  This cpp file explains the useage of all the method of the RNG
-//  class. We illustrate this using the the classic example of the
+//  We illustrate the usage of library using the classic example of the
 //  Monte-carlo technique for the estimation of PI
-//
-//####################################################################
 
 
 
+// Here we include some needed modules
 #include <iostream>
 #include <unistd.h>
 #include <string>
@@ -16,22 +12,14 @@
 #include <chrono>
 #include <cmath>
 #include <fstream>
-#include <thread>         
+#include <thread>   
+      
+// Next, we including our source codes
+#include "RNG.cpp" // Always needed
+#include "rand.cpp" //Needed for our estimation of PI
 
 using namespace std;
 
-
-// Including our source codes
-
-#include "RNG.cpp" // Always needed
-#include "rand.cpp" //Needed for our estimation of PI
-#include "randInt.cpp"
-#include "randExp.cpp"
-#include "randNorm.cpp"
-#include "randBernouli.cpp"
-//   NOTE: Only rand.cpp in needed for our estimation of PI. Others, i.e
-//   randInt, randExp e.t.c are only included to illustrate their usage.
-//   RNG.cpp is always needed. 
 
 
 
@@ -47,7 +35,6 @@ void display_usage(){
 void pause( int sec){
     this_thread::sleep_for (std::chrono::seconds( sec));
     }
-
 
 
 //*********** CHECKS IF SAVED STATE FILES EXISTS ******************
@@ -66,44 +53,13 @@ int main(){
 	display_usage();
 	pause(4);
 	
-	
 	//user-defined seed
 	uint32 _seed = 139853;
-	
-	
-	//  Pointers for each class members (unseeded)
-	std::unique_ptr<RNG> RAND; 
-	std::unique_ptr<RNG> RANDINT;
-	std::unique_ptr<RNG> RANDEXP;
-	std::unique_ptr<RNG> RANDNORM;
-	std::unique_ptr<RNG> RANDBERNOULI;
-	
-	
-	//  Pointers for each class members (seeded)
-	std::unique_ptr<RNG> RAND_unseeded;
-	std::unique_ptr<RNG> RANDINT_unseeded;
-	std::unique_ptr<RNG> RANDEXP_unseeded;
-	std::unique_ptr<RNG> RANDNORM_unseeded;
-	std::unique_ptr<RNG> RANDBERNOULI_unseeded;
-	
-	
-	//  Object Instantiations
-	RAND = FAST_RAND( _seed);// samples from uniform distribution in the range [0, 1]
-	RANDINT = FAST_RANDINT( _seed);
-	RANDEXP = FAST_RANDEXP( _seed);
-	RANDNORM = FAST_RANDNORM( _seed );
-	RANDBERNOULI = FAST_RANDBERNOULI( _seed );
-	
-	RAND_unseeded = FAST_RAND( ); 
-	RANDINT_unseeded = FAST_RANDINT( );
-	RANDEXP_unseeded = FAST_RANDEXP( );
-	RANDNORM_unseeded = FAST_RANDNORM( );
-	RANDBERNOULI_unseeded = FAST_RANDBERNOULI( );
 
-	//NOTE:
-	//Previously unseeded objects can be seeded at any stage as follows:
-	//RAND_unseeded.seed( _seed);
-	//RANDNORM_unseeded.seed( _seed);
+	
+	//  The rand member Pointer
+	std::unique_ptr<RNG> RAND;
+	RAND = FAST_RAND( _seed);
 
 	
 	//#####################################################################
@@ -214,7 +170,7 @@ int main(){
 	cout<< "\t\t=============================================\n";
 	cout << "\tEstimated value for PI with a total sample count of";
 	cout<< sample_count<<" is : " << PI;
-	cout<< "\n--------------------------------------------------------------------------------------------\n";
+	cout<< "\n-----------------------------------------------------------------------\n";
 	
 	
 	//########### Now we Let's save useful information ################

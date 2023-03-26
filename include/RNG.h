@@ -25,7 +25,7 @@ class RNG{
 		virtual double randDblExc( const double n ) { return 0.0; };
 		
 		//TEST DISTRIBUTIONS
-		virtual double randBernouli(const double n){return 0.0;};
+		virtual double randBernoulli(const double n){return 0.0;};
 		virtual double randExp(const double n){return 0.0;};
 		
 		
@@ -59,7 +59,7 @@ class MTFromPIMC:public RNG{
 		
 		//TEST EXPONENTIAL DISTRIBUTIONS
 		double randExp(const double );	
-		double randBernouli( const double);	
+		double randBernoulli( const double);	
 	
 	    	// Saving and loading generator state
 		std::stringstream save();  // to array of size SAVE
@@ -86,7 +86,7 @@ class MTFromSTL:public RNG{
 
 		//TEST DISTRIBUTIONS
 		double randExp(const double );
-		double randBernouli( const double);		
+		double randBernoulli( const double);		
 	    // Saving and loading generator state
 		std::stringstream save();  // to array of size SAVE
 		void load(std::istream&);  // from such array
@@ -97,7 +97,7 @@ class MTFromSTL:public RNG{
 		std::uniform_int_distribution<uint32> disInt{};
 		std::normal_distribution<double> disNorm{};
 		std::exponential_distribution<double> disExp{};
-		std::bernoulli_distribution disBernouli{};
+		std::bernoulli_distribution disBernoulli{};
 	};
 
 
@@ -118,7 +118,7 @@ class MTFromPCG:public RNG{
 
 		//TEST DISTRIBUTIONS
 		double randExp(const double );
-		double randBernouli(const double );
+		double randBernoulli(const double );
 	
 		// Saving and loading generator state
 		std::stringstream save();  // to array of size SAVE
@@ -132,7 +132,7 @@ class MTFromPCG:public RNG{
 		
 		//TEST DISTRIBUTIONS
 		std::exponential_distribution<double> disExp{};
-		std::bernoulli_distribution disBernouli{};
+		std::bernoulli_distribution disBernoulli{};
 	};
 
 
@@ -154,7 +154,7 @@ class MTFromBOOST:public RNG{
 		
 		//TEST DISTRIBUTION
 		double randExp(const double );
-		double randBernouli( const double );
+		double randBernoulli( const double );
 		
 		std::stringstream save();  // to array of size SAVE
 		void load(std::istream&);
@@ -167,7 +167,7 @@ class MTFromBOOST:public RNG{
 		
 		//TEST DISTRIBUTION
 		boost::random::exponential_distribution<double> disExp{};
-		boost::random::bernoulli_distribution<double> disBernouli{};
+		boost::random::bernoulli_distribution<double> disBernoulli{};
 	};
 
 

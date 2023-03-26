@@ -124,7 +124,7 @@ public:
     
     
     //TEST DISTRIBUTIONS
-	double randBernouli( const double n);
+	double randBernoulli( const double n);
 	double randExp( const double rate );
 
     // Re-seeding functions with same behavior as initializers
@@ -374,7 +374,7 @@ inline double MTRand::randNorm( const double mean, const double stddev )
 }
 
 // Bernoulli Test
-inline double MTRand::randBernouli( const double p_true )
+inline double MTRand::randBernoulli( const double p_true )
 {	
 	if (rand() < p_true){
 		return 1.0;}
