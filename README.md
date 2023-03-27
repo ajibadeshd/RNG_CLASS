@@ -17,11 +17,10 @@ While these are the four RNGs used in this project for our RNG class, its implem
 
 
 # INTSTALLATION, COMPILATION AND USAGE
-After clonning this directory, the code can be compiled using g++ with the command:
+After clonning this directory, the installation can be setup by running bootstrap.sh script as follows:
     
-    g++ -std=c++14 -o rng_sample rng_sample.cpp -I /path/to/include/boost
+    ./bootstrap.sh
 
-where `/path/to/include/boost` is only necessary if your boost headers are located in a non-standard location.
 
 ## CODE USAGE
 
@@ -32,8 +31,8 @@ To see the help string, do:
     ./rng_sample -h     
 
     USAGE:	-h [help]	Displays this help message
-	    -t [test mode] 	<test sample size> (An integer value)
-	    -r [run mode] 	<pimc_mt19937||std_mt19937||boost_mt19937||PCG>
+	    	-t [test mode] 	<test sample size> (An integer value)
+	    	-r [run mode] 	<pimc_mt19937||std_mt19937||boost_mt19937||PCG>
 
 
     
