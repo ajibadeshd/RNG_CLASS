@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Remove old redundant files
-rm -rf src speed_test pcg* RNG.* MersenneTwister.h rng_sample.cpp makefile time_plot.py
+rm -rf speed_test pcg* RNG.* MersenneTwister.h rng_sample.cpp 
 sleep 1
 echo ""
 echo "Downloading and setting up PCG"
